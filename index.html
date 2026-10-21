@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2aa57a">
+<title>Th.One — Portal do Profissional</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  /* ================================================================
+     CORREÇÃO CRÍTICA — FONT AWESOME
+     ================================================================ */
+  i.fa::before,
+  i.fas::before,
+  i.far::before,
+  i.fab::before,
+  i.fa-solid::before,
+  i.fa-regular::before,
+  i.fa-brands::before,
+  i[class*="fa-"]::before {
+    font-family: inherit !important;
+  }
+  i.fa, i.fas, i.far, i.fab,
+  i.fa-solid, i.fa-regular, i.fa-brands,
+  i[class*="fa-"] {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif; }
+  html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+  html, body { overflow-x: hidden; width: 100%; max-width: 100%; }
+  body {
+    background: linear-gradient(160deg, #e8f5e9 0%, #f4faf7 60%, #e0f2e9 100%);
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+    font-size: clamp(14px, 1.4vw + 10px, 16px);
+    line-height: 1.5; color: #1a2b23;
+  }
+  img, svg, video { max-width: 100%; height: auto; display: block; }
+  input, select, textarea, button { font: inherit; max-width: 100%; }
+  button { touch-action: manipulation; cursor: pointer; }
+
+  .app-card {
+    max-width: 960px; width: 100%; min-width: 0;
+    background: #fff; border-radius: clamp(18px, 2.5vw, 28px);
+    box-shadow: 0 24px 48px rgba(0,60,40,0.12);
+    padding: clamp(16px, 2.5vw, 32px) clamp(14px, 2vw, 28px);
+    position: relative;
+  }
+
+  .header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+  .header-logo { height: clamp(32px, 5vw, 52px); width: auto; max-width: 120px; object-fit: contain; border-radius: 8px; flex-shrink: 0; }
+  .header-info { flex: 1; min-width: 0; }
+  .header-info h1 { font-size: clamp(0.95rem, 2vw + 0.7rem, 1.5rem); font-weight: 700; color: #0b3b2e; word-break: break-word; line-height: 1.2; }
+  .header-info .greeting { font-size: 0.82rem; color: #4a6a60; margin-top: 2px; word-break: break-word; }
+  .header-badge {
+    background: #e8f5e9; color: #1b5e20; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px; font-size: 0.72rem;
+    border: 1px solid #a5d6a7; letter-spacing: 0.3px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .header-badge i { color: #2e7d32; margin-right: 4px; font-size: 1em; }
+
+  .subhead {
+    color: #4a6a60; font-size: 0.85rem;
+    margin-bottom: 16px; padding: 10px 14px;
+    background: rgba(232, 245, 233, 0.7);
+    border-left: 4px solid #2aa57a; border-radius: 0 12px 12px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .subhead > span { word-break: break-word; min-width: 0; }
+  .theme-selector { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .theme-selector select { padding: 5px 10px; border-radius: 20px; border: 1px solid #c0d8cc; background: white; font-size: 0.8rem; color: #1a4a3a; outline: none; max-width: 100%; }
+
+  .nav-tabs {
+    display: flex; gap: 4px; margin-bottom: 18px;
+    border-bottom: 2px solid #e6f0eb; padding-bottom: 4px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+  }
+  .nav-tabs::-webkit-scrollbar { height: 4px; }
+  .nav-tabs::-webkit-scrollbar-thumb { background: #cfe6dc; border-radius: 10px; }
+  .nav-tabs button {
+    padding: 9px 16px; border: none; background: transparent;
+    font-weight: 600; font-size: 0.85rem; color: #6d8a80;
+    cursor: pointer; border-radius: 20px; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: 0.2s; min-height: 38px; flex-shrink: 0;
+  }
+  .nav-tabs button:hover { background: #eefaf4; color: #1a4a3a; }
+  .nav-tabs button.active { background: #2aa57a; color: white; box-shadow: 0 4px 10px rgba(42,165,122,0.3); }
+  .nav-tabs button i { font-size: 1em; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section { background: rgba(248, 253, 250, 0.9); border-radius: 18px; padding: 16px 16px 18px; border: 1px solid #e6f0eb; margin-bottom: 16px; min-width: 0; }
+  .section-title {
+    font-weight: 700; font-size: 1rem; color: #1a4a3a;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 2px dashed #cfe6dc;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; word-break: break-word;
+  }
+  .section-title i { color: #2aa57a; font-size: 1em; }
+
+  .form-group { margin-bottom: 12px; min-width: 0; }
+  .form-group label { display: block; font-weight: 600; color: #1a4a3a; font-size: 0.82rem; margin-bottom: 5px; word-break: break-word; }
+  .form-group label i { color: #2aa57a; font-size: 1em; }
+  .form-group label .req { color: #c73b3b; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  input[type="text"], input[type="email"], input[type="date"], input[type="time"], input[type="number"], input[type="tel"], select, textarea {
+    width: 100%; padding: 11px 13px;
+    border: 1px solid #c8ddcf; border-radius: 12px;
+    background: #fff; color: #1a2b23;
+    outline: none; transition: 0.15s;
+    font-size: 0.92rem; min-height: 44px;
+  }
+  input:focus, select:focus, textarea:focus { border-color: #2aa57a; box-shadow: 0 0 0 3px rgba(42,165,122,0.15); }
+  textarea { resize: vertical; min-height: 70px; font-family: inherit; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; border-radius: 30px; font-weight: 600; font-size: 0.88rem;
+    padding: 11px 20px; min-height: 44px; border: none;
+    cursor: pointer; transition: 0.15s; max-width: 100%; text-align: center;
+    word-break: break-word;
+  }
+  .btn i { font-size: 1em; flex-shrink: 0; }
+  .btn-primary { background: #2aa57a; color: #fff; }
+  .btn-primary:hover { background: #1a7d5a; box-shadow: 0 4px 12px rgba(42,165,122,0.3); }
+  .btn-success { background: #2e7d32; color: #fff; }
+  .btn-success:hover { background: #1b5e20; }
+  .btn-whats { background: #25D366; color: #fff; }
+  .btn-whats:hover { background: #1da851; }
+  .btn-warn { background: #f57f17; color: #fff; }
+  .btn-warn:hover { background: #e65100; }
+  .btn-danger { background: #c62828; color: #fff; }
+  .btn-danger:hover { background: #b71c1c; }
+  .btn-blue { background: #1976d2; color: #fff; }
+  .btn-blue:hover { background: #0d47a1; }
+  .btn-ghost { background: #fff; color: #347a60; border: 1px solid #c8ddcf; }
+  .btn-ghost:hover { background: #edfaf4; border-color: #8fc7b0; }
+  .btn-block { width: 100%; }
+  .btn-sm { padding: 7px 14px; font-size: 0.8rem; min-height: 36px; }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .btn-row > .btn { flex: 1 1 auto; }
+
+  .card { background: #fff; border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #dcece4; border-left: 4px solid #2aa57a; transition: 0.15s; min-width: 0; }
+  .card:hover { box-shadow: 0 4px 12px rgba(42,165,122,0.08); }
+  .card.cancelado { border-left-color: #c62828; opacity: 0.75; }
+  .card.realizado { border-left-color: #2e7d32; }
+  .card.faltou { border-left-color: #f57f17; }
+  .card.confirmado { border-left-color: #1976d2; }
+  .card.pendente { border-left-color: #f57f17; animation: pulseBorder 2s ease infinite; }
+  @keyframes pulseBorder { 0%,100% { border-left-color: #f57f17; } 50% { border-left-color: #ffab40; } }
+  .card-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .card-title { font-weight: 700; color: #0b3b2e; font-size: 0.98rem; flex: 1; min-width: 0; word-break: break-word; }
+  .card-title i { color: #2aa57a; font-size: 1em; }
+  .card-meta { font-size: 0.85rem; color: #4a6a60; margin-top: 4px; display: flex; flex-wrap: wrap; gap: 10px 14px; }
+  .card-meta span { display: inline-flex; align-items: center; gap: 4px; word-break: break-word; min-width: 0; }
+  .card-meta i { color: #2aa57a; font-size: 1em; }
+  .card-obs { margin-top: 8px; padding: 8px 12px; background: #f0fdf8; border-radius: 10px; font-size: 0.83rem; color: #4a6a60; word-break: break-word; }
+  .card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e6f0eb; }
+
+  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; flex-shrink: 0; }
+  .badge-agendado { background: #e6f0eb; color: #1a5a44; }
+  .badge-confirmado { background: #e3f2fd; color: #1565c0; }
+  .badge-realizado { background: #e8f5e9; color: #1b5e20; }
+  .badge-cancelado { background: #ffebee; color: #b71c1c; }
+  .badge-faltou { background: #fff9c4; color: #8a5a00; }
+  .badge-info { background: #e6f0fe; color: #1a4b77; }
+  .badge-novo { background: #fff9e0; color: #8a5a00; border: 1px solid #ffe082; }
+  .badge-novo i { font-size: 0.9em; }
+
+  .esp-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+  .empty { text-align: center; padding: 30px 16px; color: #6d8a80; font-size: 0.9rem; word-break: break-word; }
+  .empty i { font-size: 2.4rem; color: #cfe6dc; display: block; margin-bottom: 12px; }
+
+  .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .dash-card { background: linear-gradient(135deg, #fff 0%, #f5fdfa 100%); border-radius: 16px; padding: 14px 16px; border: 1px solid #dcece4; position: relative; overflow: hidden; min-width: 0; }
+  .dash-card .label { font-size: 0.7rem; color: #6d8a80; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; word-break: break-word; }
+  .dash-card .value { font-size: clamp(1.3rem, 1.5vw + 1rem, 1.8rem); font-weight: 800; color: #0b3b2e; margin-top: 4px; word-break: break-word; }
+  .dash-card .sub { font-size: 0.72rem; color: #4a6a60; margin-top: 2px; word-break: break-word; }
+  .dash-card i.bg-icon { position: absolute; top: 12px; right: 14px; opacity: 0.1; pointer-events: none; font-size: 1.8rem; }
+  .dash-card.verde i.bg-icon { color: #2aa57a; }
+  .dash-card.azul i.bg-icon { color: #1976d2; }
+  .dash-card.laranja i.bg-icon { color: #f57f17; }
+  .dash-card.roxo i.bg-icon { color: #6a1b9a; }
+
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; z-index: 9998; padding: 16px; overflow-y: auto; }
+  .modal-overlay.hidden { display: none; }
+  .modal { background: #fff; border-radius: 22px; max-width: 640px; width: 100%; padding: 22px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); max-height: 92vh; max-height: 92dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
+  .modal h3 { color: #0b3b2e; font-size: 1.1rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; word-break: break-word; }
+  .modal h3 i { color: #2aa57a; font-size: 1em; }
+  .modal .btn-row { justify-content: flex-end; }
+
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid #dcece4; background: #f9fdfb; margin-bottom: 8px; cursor: pointer; transition: 0.15s; }
+  .check-item:hover { background: #f0fdf8; }
+  .check-item input[type="checkbox"] { width: 20px; height: 20px; accent-color: #2aa57a; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+  .check-item-body { flex: 1; min-width: 0; }
+  .check-item-body strong { display: block; color: #0b3b2e; font-size: 0.92rem; word-break: break-word; }
+  .check-item-body small { display: block; color: #4a6a60; font-size: 0.78rem; margin-top: 2px; word-break: break-word; }
+  .check-item-body small i { color: #25D366; font-size: 0.95em; }
+
+  .info-box { background: #e8f8ee; border-left: 4px solid #25D366; padding: 12px 14px; border-radius: 12px; font-size: 0.86rem; color: #128C7E; margin-bottom: 14px; line-height: 1.55; display: flex; gap: 10px; align-items: flex-start; word-break: break-word; min-width: 0; }
+  .info-box i { font-size: 1.1em; flex-shrink: 0; margin-top: 1px; }
+  .info-box.warn { background: #fff9e0; border-left-color: #f57f17; color: #8a5a00; }
+  .info-box.warn i { color: #f57f17; }
+  .info-box.info { background: #e6f0fe; border-left-color: #2a7de1; color: #1a4b77; }
+  .info-box.info i { color: #2a7de1; }
+
+  .footer { margin-top: 26px; padding-top: 18px; border-top: 1px solid #e2f0e9; text-align: center; font-size: 0.78rem; color: #4a6a60; line-height: 1.7; word-break: break-word; }
+  .footer strong { color: #0b3b2e; }
+  .footer a { color: #2aa57a; text-decoration: none; word-break: break-all; }
+  .footer i { font-size: 1em; }
+
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #0b3b2e; color: #fff; padding: 11px 22px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; z-index: 99999; box-shadow: 0 8px 24px rgba(0,0,0,0.3); max-width: 90%; text-align: center; opacity: 0; transition: opacity 0.25s; pointer-events: none; word-break: break-word; }
+  .toast.show { opacity: 1; }
+  .toast.success { background: #2e7d32; }
+  .toast.error { background: #c62828; }
+
+  @media (max-width: 600px) {
+    body { padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+    .app-card { padding: 14px 12px; border-radius: 18px; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-tabs button { padding: 8px 12px; font-size: 0.8rem; }
+    .card-header { flex-wrap: wrap; }
+    .dash-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .dash-card { padding: 10px 12px; }
+    .dash-card i.bg-icon { font-size: 1.5rem; top: 8px; right: 10px; }
+    .section { padding: 12px 12px 14px; border-radius: 14px; }
+    .section-title { font-size: 0.95rem; }
+    .modal { padding: 18px 14px; border-radius: 18px; }
+    .modal .btn-row { flex-direction: column-reverse; }
+    .modal .btn-row > .btn { width: 100%; }
+    .btn { font-size: 0.85rem; }
+    .header-info h1 { font-size: 1rem; }
+    .header-badge { font-size: 0.68rem; padding: 3px 10px; }
+    .subhead { font-size: 0.8rem; padding: 8px 12px; }
+    .theme-selector select { font-size: 0.76rem; }
+  }
+  @media (max-width: 400px) {
+    body { padding: 6px; font-size: 13.5px; }
+    .app-card { padding: 12px 10px; border-radius: 14px; }
+    .nav-tabs button { padding: 7px 10px; font-size: 0.74rem; gap: 4px; }
+    .nav-tabs { gap: 2px; }
+    .dash-grid { gap: 6px; }
+    .dash-card { padding: 9px 11px; border-radius: 12px; }
+    .dash-card .value { font-size: 1.2rem; }
+    .dash-card .label { font-size: 0.62rem; }
+    .dash-card .sub { font-size: 0.66rem; }
+    .card { padding: 12px 12px; border-radius: 14px; }
+    .card-actions { gap: 4px; }
+    .btn-sm { padding: 7px 11px; font-size: 0.76rem; min-height: 34px; }
+    .btn { padding: 10px 16px; font-size: 0.82rem; min-height: 42px; }
+    .section-title { font-size: 0.9rem; }
+    .header-info h1 { font-size: 0.95rem; }
+    .modal h3 { font-size: 1rem; }
+    .check-item { padding: 8px 10px; }
+    .check-item-body strong { font-size: 0.85rem; }
+    .check-item-body small { font-size: 0.72rem; }
+    .empty { padding: 22px 12px; font-size: 0.85rem; }
+    .empty i { font-size: 2rem; }
+    .info-box { padding: 10px 12px; font-size: 0.8rem; }
+  }
+  @media (max-width: 340px) {
+    .nav-tabs button { padding: 6px 8px; font-size: 0.7rem; gap: 3px; }
+    .dash-card .value { font-size: 1.05rem; }
+    .header-info h1 { font-size: 0.88rem; }
+    .btn-sm { padding: 6px 9px; font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-card">
+
+  <div class="header">
+    <img id="headerLogo" class="header-logo" style="display:none;" alt="Logo" onerror="this.style.display='none';document.getElementById('headerIcon').style.display='inline-block';">
+    <i class="fas fa-user-md" id="headerIcon" style="font-size:1.8rem;color:#2aa57a;display:none;"></i>
+    <div class="header-info">
+      <h1 id="clinicaNome">Th.One — Portal do Profissional</h1>
+      <div class="greeting" id="greeting">Profissional de Saúde</div>
+    </div>
+    <span class="header-badge" id="statusBadge"><i class="fas fa-user-md"></i> Visitante</span>
+  </div>
+
+  <div class="subhead">
+    <span><i class="fas fa-stethoscope" style="color:#2aa57a;margin-right:6px;"></i> Receba agendamentos, confirme por WhatsApp e integre ao Google Agenda.</span>
+    <div class="theme-selector">
+      <i class="fas fa-palette" style="color:#2aa57a;"></i>
+      <select id="themeSelect">
+        <option value="green">Verde</option>
+        <option value="blue">Azul</option>
+        <option value="rose">Rosa</option>
+        <option value="purple">Roxo</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="active" data-tab="inicio"><i class="fas fa-home"></i><span>Início</span></button>
+    <button data-tab="agendamentos"><i class="fas fa-calendar-check"></i><span>Agendamentos</span></button>
+    <button data-tab="novo"><i class="fas fa-calendar-plus"></i><span>Novo</span></button>
+    <button data-tab="profissionais"><i class="fas fa-leaf"></i><span>Profissionais</span></button>
+    <button data-tab="cadastro"><i class="fas fa-user-md"></i><span>Meu Cadastro</span></button>
+    <button data-tab="config"><i class="fas fa-cog"></i><span>Configurações</span></button>
+  </div>
+
+  <!-- ================= INÍCIO ================= -->
+  <div id="tab-inicio" class="tab-content active">
+    <div id="bannerInicio"></div>
+
+    <div class="dash-grid">
+      <div class="dash-card laranja">
+        <i class="fas fa-hourglass-half bg-icon"></i>
+        <div class="label">Pendentes</div>
+        <div class="value" id="dashPend">0</div>
+        <div class="sub" id="dashPendSub">aguardando confirmação</div>
+      </div>
+      <div class="dash-card azul">
+        <i class="fas fa-calendar-day bg-icon"></i>
+        <div class="label">Hoje</div>
+        <div class="value" id="dashHoje">0</div>
+        <div class="sub" id="dashHojeSub">atendimentos</div>
+      </div>
+      <div class="dash-card verde">
+        <i class="fas fa-calendar-check bg-icon"></i>
+        <div class="label">Confirmados</div>
+        <div class="value" id="dashConf">0</div>
+        <div class="sub" id="dashConfSub">no total</div>
+      </div>
+      <div class="dash-card roxo">
+        <i class="fas fa-users bg-icon"></i>
+        <div class="label">Pacientes</div>
+        <div class="value" id="dashPac">0</div>
+        <div class="sub" id="dashPacSub">importados</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-bolt"></i> Ações rápidas</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="trocarTab('novo')"><i class="fas fa-calendar-plus"></i> Novo agendamento</button>
+        <button class="btn btn-whats" id="btnImportarRapido"><i class="fab fa-whatsapp"></i> Importar agendamentos</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-exclamation-circle" style="color:#f57f17;"></i> Aguardando confirmação</div>
+      <div id="inicioPendentes"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-calendar-day"></i> Próximos atendimentos</div>
+      <div id="inicioProximos"></div>
+    </div>
+  </div>
+
+  <!-- ================= AGENDAMENTOS ================= -->
+  <div id="tab-agendamentos" class="tab-content">
+    <div class="section">
+      <div class="section-title"><i class="fas fa-calendar-check"></i> Agendamentos Recebidos</div>
+
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label><i class="fas fa-filter"></i> Filtrar por status</label>
+          <select id="filtroStatus">
+            <option value="">Todos</option>
+            <option value="Agendado">Agendado (pendente)</option>
+            <option value="Confirmado">Confirmado</option>
+            <option value="Realizado">Realizado</option>
+            <option value="Faltou">Faltou</option>
+            <option value="Cancelado">Cancelado</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label><i class="fas fa-search"></i> Buscar paciente</label>
+          <input type="text" id="filtroTexto" placeholder="Nome...">
+        </div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <div class="btn-row">
+          <button class="btn btn-whats" id="btnImportarLista"><i class="fab fa-whatsapp"></i> Importar backup do paciente</button>
+          <button class="btn btn-ghost" id="btnExportarLista"><i class="fas fa-file-export"></i> Exportar para clínica</button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div id="listaAgendamentos"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NOVO ================= -->
+  <div id="tab-novo" class="tab-content">
+    <div class="section">
+      <div class="section-title"><i class="fas fa-calendar-plus"></i> Novo Agendamento (manual)</div>
+
+      <div id="novoAviso"></div>
+
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Paciente <span class="req">*</span></label>
+        <select id="novoPaciente"><option value="">— Selecione —</option></select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-leaf"></i> Especialidade <span class="req">*</span></label>
+        <select id="novoEsp"><option value="">— Selecione —</option></select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label><i class="fas fa-calendar"></i> Data <span class="req">*</span></label>
+          <input type="date" id="novoData">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label><i class="fas fa-clock"></i> Hora <span class="req">*</span></label>
+          <input type="time" id="novoHora" value="09:00">
+        </div>
+      </div>
+
+      <div class="form-row" style="margin-top:10px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label><i class="fas fa-hourglass-half"></i> Duração (min)</label>
+          <input type="number" id="novoDur" placeholder="60" min="15" max="480">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label><i class="fas fa-dollar-sign"></i> Valor (R$)</label>
+          <input type="text" id="novoValor" placeholder="0,00" inputmode="decimal">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:12px;">
+        <label><i class="fas fa-notes-medical"></i> Observações</label>
+        <textarea id="novoObs" rows="2" placeholder="Notas internas..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="limparNovo()"><i class="fas fa-eraser"></i> Limpar</button>
+        <button class="btn btn-primary" id="btnSalvarNovo"><i class="fas fa-save"></i> Salvar agendamento</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PROFISSIONAIS ================= -->
+  <div id="tab-profissionais" class="tab-content">
+    <div class="section">
+      <div class="section-title"><i class="fas fa-user-md"></i> Profissionais & Especialidades</div>
+
+      <div class="info-box info">
+        <i class="fas fa-info-circle"></i>
+        <div>
+          Importe o backup incremental da clínica para receber <strong>profissionais</strong> e <strong>especialidades</strong>. Depois, use <strong>Meu Cadastro</strong> para marcar qual é você.
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btnImportarProf"><i class="fas fa-file-import"></i> Importar da clínica</button>
+      </div>
+
+      <div style="margin-top:20px;">
+        <div class="section-title"><i class="fas fa-users"></i> Profissionais <span class="badge badge-info" id="countProf">0</span></div>
+        <div id="listaProfissionais"></div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <div class="section-title"><i class="fas fa-leaf"></i> Especialidades <span class="badge badge-info" id="countEsp">0</span></div>
+        <div id="listaEspecialidades"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MEU CADASTRO ================= -->
+  <div id="tab-cadastro" class="tab-content">
+    <div class="section">
+      <div class="section-title"><i class="fas fa-user-md"></i> Meu Cadastro (Profissional)</div>
+
+      <div id="cadastroAviso"></div>
+
+      <div class="form-group">
+        <label>Qual profissional é você? <span class="req">*</span></label>
+        <select id="cadMeuId"><option value="">— Selecione —</option></select>
+        <small style="display:block;color:#6d8a80;font-size:0.78rem;margin-top:4px;">Este profissional será associado aos agendamentos recebidos.</small>
+      </div>
+
+      <div class="form-group">
+        <label>Nome completo <span class="req">*</span></label>
+        <input type="text" id="cadNome" placeholder="Dr(a). Nome Completo">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Registro (CRM/CRO/CRT...)</label>
+          <input type="text" id="cadRegistro" placeholder="CRM 123456">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>WhatsApp / Telefone</label>
+          <input type="tel" id="cadTelefone" placeholder="(21) 99999-9999" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="form-row" style="margin-top:10px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>E-mail</label>
+          <input type="email" id="cadEmail" placeholder="profissional@clinica.com">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Especialidade principal</label>
+          <input type="text" id="cadEspecialidade" placeholder="Ex: Massoterapia, Acupuntura...">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:10px;">
+        <label>Observações / Formação</label>
+        <textarea id="cadObs" rows="2" placeholder="Informações relevantes"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary btn-block" id="btnSalvarCadastro"><i class="fas fa-save"></i> Salvar meus dados</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CONFIGURAÇÕES ================= -->
+  <div id="tab-config" class="tab-content">
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-building"></i> Dados da Clínica / Central</div>
+      <div class="form-group">
+        <label>Nome da clínica</label>
+        <input type="text" id="cfgNomeClinica" placeholder="Th.One Terapias Integrativas">
+      </div>
+      <div class="form-group">
+        <label>WhatsApp da clínica (para enviar confirmações)</label>
+        <input type="tel" id="cfgTelefoneClinica" placeholder="(21) 99999-9999" inputmode="numeric">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btnSalvarCfg"><i class="fas fa-save"></i> Salvar</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-file-export"></i> Exportar agendamentos</div>
+      <div class="info-box">
+        <i class="fab fa-whatsapp"></i>
+        <div>Gera um <strong>backup incremental</strong> com seus agendamentos e pacientes. Envie para a clínica ou para os pacientes pelo WhatsApp. A clínica usa <strong>Restaurar Incremental</strong> no app principal.</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-success" id="btnExportarCfg"><i class="fas fa-file-export"></i> Exportar (Incremental)</button>
+        <button class="btn btn-whats" id="btnExportarWhatsCfg"><i class="fab fa-whatsapp"></i> Enviar via WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-file-import"></i> Importar backup</div>
+      <div class="info-box info">
+        <i class="fas fa-info-circle"></i>
+        <div>Aceita <strong>backups de pacientes</strong> (agendamentos + dados) e <strong>backups da clínica</strong> (profissionais + especialidades). Os dados são mesclados sem sobrescrever registros mais recentes.</div>
+      </div>
+      <button class="btn btn-primary btn-block" id="btnImportarCfg"><i class="fas fa-file-import"></i> Importar backup (.json)</button>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="fas fa-database"></i> Backup completo do Portal</div>
+      <div class="info-box warn">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>Faz backup de <strong>tudo</strong> neste portal (seu cadastro, profissionais, especialidades, pacientes, agendamentos). Use para migrar para outro celular.</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-success" id="btnBackupPortal"><i class="fas fa-download"></i> Backup completo</button>
+        <button class="btn btn-ghost" id="btnRestorePortal"><i class="fas fa-upload"></i> Restaurar</button>
+      </div>
+    </div>
+
+    <div class="section" style="border-color:#ffcdd2;">
+      <div class="section-title" style="border-bottom-color:#ffcdd2;color:#b71c1c;"><i class="fas fa-trash-alt"></i> Zona de risco</div>
+      <button class="btn btn-danger btn-block" id="btnLimparTudo"><i class="fas fa-trash-alt"></i> Apagar todos os dados deste portal</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Th.One Terapias Integrativas</strong> — Portal do Profissional<br>
+    <i class="fab fa-whatsapp" style="color:#25D366;"></i>
+    <a href="https://wa.me/5521969544112" target="_blank">(21) 96954-4112</a>
+    &nbsp;|&nbsp;
+    <i class="fas fa-envelope" style="color:#2aa57a;"></i>
+    <a href="mailto:roliver.webdeveloper@gmail.com">roliver.webdeveloper@gmail.com</a><br>
+    <span style="font-size:0.72rem;color:#8aa79c;">v1.1 — integrado ao app principal + Portal do Paciente</span>
+  </div>
+</div>
+
+<!-- ========== MODAL: CONFIRMAR AGENDAMENTO ========== -->
+<div id="modalConfirmar" class="modal-overlay hidden">
+  <div class="modal">
+    <h3><i class="fas fa-check-circle" style="color:#2e7d32;"></i> Confirmar agendamento</h3>
+    <div id="modalConfirmarInfo" style="margin-bottom:14px;"></div>
+
+    <label class="check-item">
+      <input type="checkbox" id="chkStatus" checked>
+      <div class="check-item-body">
+        <strong>Alterar status para "Confirmado"</strong>
+        <small>Atualiza o agendamento e libera para a clínica/paciente</small>
+      </div>
+    </label>
+
+    <label class="check-item">
+      <input type="checkbox" id="chkClinica" checked>
+      <div class="check-item-body">
+        <strong>Enviar confirmação para a Clínica</strong>
+        <small id="chkClinicaInfo">—</small>
+      </div>
+    </label>
+
+    <label class="check-item">
+      <input type="checkbox" id="chkPaciente" checked>
+      <div class="check-item-body">
+        <strong>Enviar confirmação para o Paciente</strong>
+        <small id="chkPacienteInfo">—</small>
+      </div>
+    </label>
+
+    <label class="check-item">
+      <input type="checkbox" id="chkGcal">
+      <div class="check-item-body">
+        <strong>Adicionar ao Google Agenda</strong>
+        <small>Abre o evento com data/hora e detalhes</small>
+      </div>
+    </label>
+
+    <div class="btn-row" style="justify-content:flex-end;margin-top:16px;">
+      <button class="btn btn-ghost" onclick="document.getElementById('modalConfirmar').classList.add('hidden')"><i class="fas fa-times"></i> Cancelar</button>
+      <button class="btn btn-success" id="btnConfirmarEnviar"><i class="fas fa-paper-plane"></i> Confirmar e enviar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MODAL: DETALHES ========== -->
+<div id="modalDetalhes" class="modal-overlay hidden">
+  <div class="modal">
+    <h3><i class="fas fa-info-circle"></i> Detalhes do Agendamento</h3>
+    <div id="modalDetalhesBody"></div>
+    <div class="btn-row" style="justify-content:flex-end;margin-top:14px;">
+      <button class="btn btn-ghost" onclick="document.getElementById('modalDetalhes').classList.add('hidden')"><i class="fas fa-times"></i> Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  let profissional = { id: null, nome: '', registro: '', telefone: '', email: '', especialidade: '', obs: '' };
+  let meuProfissionalId = null;
+  let pacientes = [];
+  let profissionais = [];
+  let especialidades = [];
+  let agendamentos = [];
+  let nextAgId = 1;
+  let config = { nomeClinica: 'Th.One Terapias Integrativas', telefoneClinica: '', tema: 'green', logo: null };
+  let filtroStatus = '';
+  let filtroTexto = '';
+  let agConfirmar = null;
+
+  const STORAGE = {
+    profissional: 'thone_prof_portal_profissional_v1',
+    meuId: 'thone_prof_portal_meuid_v1',
+    pacientes: 'thone_prof_portal_pacientes_v1',
+    profissionais: 'thone_prof_portal_profissionais_v1',
+    especialidades: 'thone_prof_portal_especialidades_v1',
+    agendamentos: 'thone_prof_portal_agendamentos_v1',
+    config: 'thone_prof_portal_config_v1'
+  };
+
+  const THEMES = {
+    green: 'linear-gradient(160deg, #e8f5e9 0%, #f4faf7 60%, #e0f2e9 100%)',
+    blue:  'linear-gradient(160deg, #e3f2fd 0%, #f0f7ff 60%, #d9ecff 100%)',
+    rose:  'linear-gradient(160deg, #fce4ec 0%, #fff5f8 60%, #fbdbe6 100%)',
+    purple:'linear-gradient(160deg, #f3e5f5 0%, #faf5fc 60%, #ecd5f0 100%)'
+  };
+
+  const $ = id => document.getElementById(id);
+  const pad2 = n => String(n).padStart(2, '0');
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function formatCurrency(v) { return 'R$ ' + (Number(v) || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function parseDecimal(str) {
+    if (str === undefined || str === null || str === '') return 0;
+    let s = String(str).trim().replace(/\./g, ',').replace(/,/g, '.');
+    s = s.replace(/[^0-9.\-]/g, '');
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  }
+  function gerarIdUnico() { return Date.now() * 1000 + Math.floor(Math.random() * 1000); }
+  function getNomeDispositivo() {
+    const ua = (navigator.userAgent || '').toLowerCase();
+    if (/android/.test(ua)) return 'Android';
+    if (/iphone|ipad|ipod/.test(ua)) return 'iPhone';
+    if (/windows/.test(ua)) return 'Windows';
+    if (/mac/.test(ua)) return 'Mac';
+    if (/linux/.test(ua)) return 'Linux';
+    return 'Dispositivo';
+  }
+  function toast(msg, tipo) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.className = 'toast show ' + (tipo || '');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = 'toast ' + (tipo || ''); }, 2800);
+  }
+  function prepararTel(tel) {
+    let n = String(tel || '').replace(/\D/g, '');
+    if (!n) return '';
+    if (n.length === 10 || n.length === 11) n = '55' + n;
+    return n;
+  }
+  function abrirWA(numero, texto) {
+    const n = prepararTel(numero);
+    if (!n) return false;
+    const url = `https://api.whatsapp.com/send?phone=${n}&text=${encodeURIComponent(texto)}`;
+    const w = window.open(url, '_blank');
+    return !!w;
+  }
+
+  /* MÁSCARAS */
+  function maskTelefone(v) {
+    let n = String(v || '').replace(/\D/g, '');
+    if (n.length > 11) n = n.slice(0, 11);
+    if (n.length === 0) return '';
+    if (n.length <= 2) return '(' + n;
+    if (n.length <= 6) return '(' + n.slice(0,2) + ') ' + n.slice(2);
+    if (n.length <= 10) return '(' + n.slice(0,2) + ') ' + n.slice(2,6) + '-' + n.slice(6);
+    return '(' + n.slice(0,2) + ') ' + n.slice(2,7) + '-' + n.slice(7);
+  }
+  function aplicarMascara(el, fn) {
+    if (!el) return;
+    el.addEventListener('input', e => {
+      const pos = e.target.selectionStart;
+      const antes = e.target.value;
+      const depois = fn(antes);
+      if (antes === depois) return;
+      const delta = depois.length - antes.length;
+      e.target.value = depois;
+      let np = pos + delta;
+      if (np < 0) np = 0;
+      if (np > depois.length) np = depois.length;
+      try { e.target.setSelectionRange(np, np); } catch(_) {}
+    });
+    el.addEventListener('blur', () => { el.value = fn(el.value); });
+  }
+
+  /* PERSISTÊNCIA */
+  function loadAll() {
+    try { const s = localStorage.getItem(STORAGE.profissional); if (s) profissional = Object.assign(profissional, JSON.parse(s)); } catch(_) {}
+    try { const s = localStorage.getItem(STORAGE.meuId); if (s) meuProfissionalId = parseInt(s) || null; } catch(_) {}
+    try { const s = localStorage.getItem(STORAGE.pacientes); if (s) pacientes = JSON.parse(s) || []; } catch(_) {}
+    try { const s = localStorage.getItem(STORAGE.profissionais); if (s) profissionais = JSON.parse(s) || []; } catch(_) {}
+    try { const s = localStorage.getItem(STORAGE.especialidades); if (s) especialidades = JSON.parse(s) || []; } catch(_) {}
+    try {
+      const s = localStorage.getItem(STORAGE.agendamentos);
+      if (s) { const d = JSON.parse(s); if (Array.isArray(d.agendamentos)) agendamentos = d.agendamentos; if (d.nextAgId) nextAgId = d.nextAgId; }
+    } catch(_) {}
+    try { const s = localStorage.getItem(STORAGE.config); if (s) config = Object.assign(config, JSON.parse(s)); } catch(_) {}
+  }
+  const saveProfissional = () => { try { localStorage.setItem(STORAGE.profissional, JSON.stringify(profissional)); } catch(_) {} };
+  const saveMeuId = () => { try { localStorage.setItem(STORAGE.meuId, String(meuProfissionalId || '')); } catch(_) {} };
+  const savePacientes = () => { try { localStorage.setItem(STORAGE.pacientes, JSON.stringify(pacientes)); } catch(_) {} };
+  const saveProfissionais = () => { try { localStorage.setItem(STORAGE.profissionais, JSON.stringify(profissionais)); } catch(_) {} };
+  const saveEspecialidades = () => { try { localStorage.setItem(STORAGE.especialidades, JSON.stringify(especialidades)); } catch(_) {} };
+  const saveAgendamentos = () => { try { localStorage.setItem(STORAGE.agendamentos, JSON.stringify({ agendamentos, nextAgId })); } catch(_) {} };
+  const saveConfig = () => { try { localStorage.setItem(STORAGE.config, JSON.stringify(config)); } catch(_) {} };
+
+  /* TEMA / HEADER */
+  function applyTheme(t) {
+    document.body.style.background = THEMES[t] || THEMES.green;
+    try { localStorage.setItem('thone_prof_portal_tema', t); } catch(_) {}
+  }
+  function renderHeader() {
+    $('clinicaNome').textContent = config.nomeClinica || 'Th.One Terapias Integrativas';
+    const greeting = $('greeting');
+    const statusBadge = $('statusBadge');
+    if (profissional.nome) {
+      const primeiro = profissional.nome.trim().split(/\s+/)[0];
+      greeting.innerHTML = `Dr(a). <strong style="color:#0b3b2e;">${escapeHtml(primeiro)}</strong> — pronto para atender? 👨‍⚕️`;
+      statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> ' + escapeHtml(primeiro);
+      statusBadge.style.background = '#e8f5e9';
+      statusBadge.style.color = '#1b5e20';
+      statusBadge.style.borderColor = '#a5d6a7';
+    } else {
+      greeting.textContent = 'Portal do Profissional';
+      statusBadge.innerHTML = '<i class="fas fa-user-md"></i> Visitante';
+      statusBadge.style.background = '#fff9e0';
+      statusBadge.style.color = '#8a5a00';
+      statusBadge.style.borderColor = '#ffe082';
+    }
+    const logo = $('headerLogo'), icon = $('headerIcon');
+    logo.onerror = function() { this.style.display = 'none'; icon.style.display = 'inline-block'; };
+    logo.onload = function() { this.style.display = 'block'; icon.style.display = 'none'; };
+    logo.src = config.logo || 'logo.jpeg';
+  }
+
+  /* NAV */
+  function trocarTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+    const content = $('tab-' + tab);
+    if (content) content.classList.add('active');
+    const btn = document.querySelector(`.nav-tabs button[data-tab="${tab}"]`);
+    if (btn) btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (tab === 'inicio') renderInicio();
+    if (tab === 'agendamentos') renderListaAgendamentos();
+    if (tab === 'novo') renderNovo();
+    if (tab === 'profissionais') renderProfissionais();
+    if (tab === 'cadastro') renderCadastro();
+    if (tab === 'config') renderConfig();
+  }
+
+  /* SELECTS */
+  function popularSelects() {
+    const selPac = $('novoPaciente');
+    if (selPac) {
+      selPac.innerHTML = '<option value="">— Selecione —</option>' +
+        pacientes.map(p => `<option value="${p.id}">${escapeHtml(p.nome)}${p.telefone ? ' — ' + escapeHtml(p.telefone) : ''}</option>`).join('');
+    }
+    const selEsp = $('novoEsp');
+    if (selEsp) {
+      selEsp.innerHTML = '<option value="">— Selecione —</option>' +
+        especialidades.map(e => `<option value="${e.id}">${escapeHtml(e.nome)}${e.valor ? ' — ' + formatCurrency(e.valor) : ''}</option>`).join('');
+    }
+    const selMeuId = $('cadMeuId');
+    if (selMeuId) {
+      selMeuId.innerHTML = '<option value="">— Selecione seu nome —</option>' +
+        profissionais.map(p => `<option value="${p.id}" ${String(p.id) === String(meuProfissionalId) ? 'selected' : ''}>${escapeHtml(p.nome)}${p.registro ? ' (' + escapeHtml(p.registro) + ')' : ''}</option>`).join('');
+    }
+  }
+
+  /* INÍCIO */
+  function renderInicio() {
+    const pendentes = agendamentos.filter(a => a.status === 'Agendado');
+    const hoje = new Date().toISOString().slice(0, 10);
+    const hojeAgs = agendamentos.filter(a => a.data === hoje && a.status !== 'Cancelado');
+    const confirmados = agendamentos.filter(a => a.status === 'Confirmado');
+
+    $('dashPend').textContent = pendentes.length;
+    $('dashPendSub').textContent = pendentes.length ? 'precisam de ação' : 'nada pendente';
+    $('dashHoje').textContent = hojeAgs.length;
+    $('dashHojeSub').textContent = hojeAgs.length ? 'atendimentos hoje' : 'sem atendimentos hoje';
+    $('dashConf').textContent = confirmados.length;
+    $('dashConfSub').textContent = confirmados.length ? 'confirmados' : 'nenhum ainda';
+    $('dashPac').textContent = pacientes.length;
+    $('dashPacSub').textContent = pacientes.length ? 'importados' : 'nenhum ainda';
+
+    const banner = $('bannerInicio');
+    if (!profissional.nome) {
+      banner.innerHTML = `<div class="info-box warn"><i class="fas fa-user-md"></i><div><strong>Complete seu cadastro</strong> em <a href="#" onclick="event.preventDefault();trocarTab('cadastro');" style="color:#8a5a00;font-weight:700;text-decoration:underline;">Meu Cadastro</a> para receber agendamentos.</div></div>`;
+    } else if (profissionais.length === 0) {
+      banner.innerHTML = `<div class="info-box warn"><i class="fas fa-download"></i><div><strong>Importe o backup da clínica</strong> em <a href="#" onclick="event.preventDefault();trocarTab('profissionais');" style="color:#8a5a00;font-weight:700;text-decoration:underline;">Profissionais</a> para receber especialidades e identificar-se.</div></div>`;
+    } else {
+      banner.innerHTML = '';
+    }
+
+    const pendEl = $('inicioPendentes');
+    if (pendentes.length === 0) {
+      pendEl.innerHTML = '<div class="empty"><i class="fas fa-check-circle" style="color:#a5d6a7;"></i>Nenhum agendamento aguardando confirmação.</div>';
+    } else {
+      const pendSorted = [...pendentes].sort((a, b) => a.dataHora - b.dataHora);
+      pendEl.innerHTML = pendSorted.slice(0, 5).map(ag => renderCardAgendamento(ag, true)).join('');
+      bindCardEvents(pendEl);
+    }
+
+    const proximos = agendamentos
+      .filter(a => a.dataHora > Date.now() && a.status !== 'Cancelado' && a.status !== 'Faltou')
+      .sort((a, b) => a.dataHora - b.dataHora)
+      .slice(0, 5);
+
+    const proxEl = $('inicioProximos');
+    if (proximos.length === 0) {
+      proxEl.innerHTML = '<div class="empty"><i class="fas fa-calendar-day"></i>Nenhum atendimento futuro.</div>';
+    } else {
+      proxEl.innerHTML = proximos.map(ag => renderCardAgendamento(ag, false)).join('');
+      bindCardEvents(proxEl);
+    }
+  }
+
+  /* LISTA */
+  function renderListaAgendamentos() {
+    const el = $('listaAgendamentos');
+    let lista = [...agendamentos].sort((a, b) => b.dataHora - a.dataHora);
+    if (filtroStatus) lista = lista.filter(a => a.status === filtroStatus);
+    if (filtroTexto) {
+      const q = filtroTexto.toLowerCase();
+      lista = lista.filter(a => {
+        const p = pacientes.find(x => x.id === a.pacienteId);
+        return p && p.nome.toLowerCase().includes(q);
+      });
+    }
+    if (lista.length === 0) {
+      el.innerHTML = `<div class="empty"><i class="fas fa-calendar-times"></i>Nenhum agendamento${filtroStatus ? ' com este status' : filtroTexto ? ' encontrado' : ''}.<br><button class="btn btn-whats btn-sm" style="margin-top:12px;" id="btnImportarVazio"><i class="fab fa-whatsapp"></i> Importar do paciente</button></div>`;
+      const btn = $('btnImportarVazio');
+      if (btn) btn.addEventListener('click', importarBackupFile);
+      return;
+    }
+    el.innerHTML = lista.map(ag => renderCardAgendamento(ag, ag.status === 'Agendado')).join('');
+    bindCardEvents(el);
+  }
+
+  function renderCardAgendamento(ag, destaque) {
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    const prof = profissionais.find(p => p.id === ag.profissionalId);
+    const esp = especialidades.find(e => e.id === ag.especialidadeId);
+    const dt = new Date(ag.dataHora);
+    const dataStr = dt.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    const horaStr = `${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
+    const badge = `badge-${ag.status.toLowerCase()}`;
+    const cardCls = destaque ? 'pendente' : ag.status.toLowerCase();
+    const corEsp = esp && esp.cor ? esp.cor : '#2aa57a';
+    const temClinica = !!config.telefoneClinica;
+    const temPaciente = pac && !!prepararTel(pac.telefone);
+
+    let btns = `
+      <button class="btn btn-ghost btn-sm" data-action="detalhes" data-id="${ag.id}"><i class="fas fa-info-circle"></i> Detalhes</button>
+      <button class="btn btn-success btn-sm" data-action="confirmar" data-id="${ag.id}"><i class="fas fa-check"></i> Confirmar</button>
+      <button class="btn btn-blue btn-sm" data-action="gcal" data-id="${ag.id}"><i class="fab fa-google"></i> Google</button>
+      <button class="btn btn-whats btn-sm" data-action="wa-pac" data-id="${ag.id}"><i class="fab fa-whatsapp"></i> Paciente</button>
+    `;
+    if (temClinica) {
+      btns += `<button class="btn btn-ghost btn-sm" data-action="wa-clin" data-id="${ag.id}"><i class="fas fa-building"></i> Clínica</button>`;
+    }
+    btns += `<button class="btn btn-ghost btn-sm" data-action="excluir" data-id="${ag.id}" style="color:#c62828;border-color:#f0c0c0;"><i class="fas fa-trash-alt"></i></button>`;
+
+    return `
+      <div class="card ${cardCls}">
+        <div class="card-header">
+          <span class="esp-dot" style="background:${corEsp};"></span>
+          <span class="card-title">${escapeHtml(pac ? pac.nome : '(Paciente)')}</span>
+          <span class="badge ${badge}">${escapeHtml(ag.status)}</span>
+          ${!temPaciente ? '<span class="badge badge-novo"><i class="fas fa-exclamation-triangle"></i> sem zap</span>' : ''}
+        </div>
+        <div class="card-meta">
+          <span><i class="fas fa-leaf"></i> ${escapeHtml(esp ? esp.nome : 'Especialidade')}</span>
+          ${prof ? `<span><i class="fas fa-user-md"></i> ${escapeHtml(prof.nome)}</span>` : ''}
+          <span><i class="fas fa-calendar"></i> ${dataStr}</span>
+          <span><i class="fas fa-clock"></i> ${horaStr} (${ag.duracao || 60}min)</span>
+          ${ag.valor ? `<span><i class="fas fa-dollar-sign"></i> ${formatCurrency(ag.valor)}</span>` : ''}
+        </div>
+        ${pac && pac.telefone ? `<div class="card-meta"><span><i class="fab fa-whatsapp" style="color:#25D366;"></i> ${escapeHtml(pac.telefone)}</span></div>` : ''}
+        ${ag.obs ? `<div class="card-obs"><i class="fas fa-notes-medical"></i> ${escapeHtml(ag.obs)}</div>` : ''}
+        <div class="card-actions">${btns}</div>
+      </div>
+    `;
+  }
+
+  function bindCardEvents(container) {
+    container.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.dataset.id);
+        const action = btn.dataset.action;
+        if (action === 'detalhes') abrirDetalhes(id);
+        if (action === 'confirmar') abrirModalConfirmar(id);
+        if (action === 'gcal') addGoogleCalendar(id);
+        if (action === 'wa-pac') enviarWAPaciente(id);
+        if (action === 'wa-clin') enviarWAClinica(id);
+        if (action === 'excluir') excluirAgendamento(id);
+      });
+    });
+  }
+
+  function abrirDetalhes(id) {
+    const ag = agendamentos.find(a => a.id === id);
+    if (!ag) return;
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    const prof = profissionais.find(p => p.id === ag.profissionalId);
+    const esp = especialidades.find(e => e.id === ag.especialidadeId);
+    const dt = new Date(ag.dataHora);
+    $('modalDetalhesBody').innerHTML = `
+      <div class="card-meta" style="font-size:0.92rem;line-height:1.9;">
+        <div><strong>Paciente:</strong> ${escapeHtml(pac ? pac.nome : '—')}</div>
+        ${pac && pac.telefone ? `<div><strong>Telefone:</strong> ${escapeHtml(pac.telefone)}</div>` : ''}
+        ${pac && pac.email ? `<div><strong>E-mail:</strong> ${escapeHtml(pac.email)}</div>` : ''}
+        <div><strong>Data/Hora:</strong> ${dt.toLocaleString('pt-BR')}</div>
+        <div><strong>Especialidade:</strong> ${escapeHtml(esp ? esp.nome : '—')}</div>
+        <div><strong>Profissional:</strong> ${escapeHtml(prof ? prof.nome : '—')}</div>
+        <div><strong>Duração:</strong> ${ag.duracao || 60} min</div>
+        <div><strong>Valor:</strong> ${formatCurrency(ag.valor)}</div>
+        <div><strong>Status:</strong> <span class="badge badge-${ag.status.toLowerCase()}">${escapeHtml(ag.status)}</span></div>
+        ${ag.obs ? `<div style="grid-column:1/-1;padding:10px 12px;background:#f0fdf8;border-radius:10px;"><strong>Obs:</strong> ${escapeHtml(ag.obs)}</div>` : ''}
+        <div style="grid-column:1/-1;margin-top:10px;font-size:0.78rem;color:#8aa79c;"><i class="fas fa-fingerprint"></i> ID: ${ag.id}</div>
+      </div>
+    `;
+    $('modalDetalhes').classList.remove('hidden');
+  }
+
+  function excluirAgendamento(id) {
+    if (!confirm('Excluir este agendamento do seu portal?')) return;
+    agendamentos = agendamentos.filter(a => a.id !== id);
+    saveAgendamentos();
+    renderAll();
+    toast('Agendamento excluído');
+  }
+
+  /* MENSAGENS */
+  function construirMensagemPaciente(ag) {
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    const esp = especialidades.find(e => e.id === ag.especialidadeId);
+    const dt = new Date(ag.dataHora);
+    const dataFmt = dt.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+    const horaFmt = `${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
+    const clinica = config.nomeClinica || 'Th.One Terapias Integrativas';
+    let txt = `*✅ Agendamento Confirmado*\n\n`;
+    txt += `Olá, *${pac ? pac.nome : 'Paciente'}*!\n\n`;
+    txt += `Seu atendimento está *confirmado*:\n\n`;
+    txt += `📅 *Data:* ${dataFmt}\n`;
+    txt += `⏰ *Horário:* ${horaFmt}\n`;
+    txt += `💆 *Serviço:* ${esp ? esp.nome : '—'}\n`;
+    txt += `⏱️ *Duração:* ${ag.duracao || 60} min\n`;
+    txt += `👤 *Profissional:* ${profissional.nome || '—'}${profissional.registro ? ' (' + profissional.registro + ')' : ''}\n`;
+    if (ag.valor) txt += `💰 *Valor:* ${formatCurrency(ag.valor)}\n`;
+    txt += `📍 *Local:* ${clinica}\n`;
+    if (ag.obs) txt += `\n📝 *Observações:* ${ag.obs}\n`;
+    txt += `\nQualquer dúvida, é só responder esta mensagem. Até lá! 💚`;
+    return txt;
+  }
+  function construirMensagemClinica(ag) {
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    const esp = especialidades.find(e => e.id === ag.especialidadeId);
+    const dt = new Date(ag.dataHora);
+    const dataFmt = dt.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+    const horaFmt = `${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
+    let txt = `*🏥 Atendimento Confirmado*\n\n`;
+    txt += `Profissional: *${profissional.nome || '—'}*${profissional.registro ? '\nRegistro: ' + profissional.registro : ''}\n\n`;
+    txt += `Paciente: *${pac ? pac.nome : '—'}*`;
+    if (pac && pac.telefone) txt += `\nTelefone: ${pac.telefone}`;
+    if (pac && pac.email) txt += `\nE-mail: ${pac.email}`;
+    txt += `\n\n📅 *Data:* ${dataFmt}\n`;
+    txt += `⏰ *Horário:* ${horaFmt}\n`;
+    txt += `💆 *Serviço:* ${esp ? esp.nome : '—'}\n`;
+    txt += `⏱️ *Duração:* ${ag.duracao || 60} min\n`;
+    if (ag.valor) txt += `💰 *Valor:* ${formatCurrency(ag.valor)}\n`;
+    if (ag.obs) txt += `\n📝 *Observações:* ${ag.obs}\n`;
+    txt += `\nStatus: ✅ *CONFIRMADO*`;
+    return txt;
+  }
+  function enviarWAPaciente(id) {
+    const ag = agendamentos.find(a => a.id === id);
+    if (!ag) return;
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    if (!pac || !pac.telefone) { alert('Este paciente não tem WhatsApp cadastrado.'); return; }
+    abrirWA(pac.telefone, construirMensagemPaciente(ag));
+    toast('Abrindo WhatsApp para o paciente...');
+  }
+  function enviarWAClinica(id) {
+    const ag = agendamentos.find(a => a.id === id);
+    if (!ag) return;
+    if (!config.telefoneClinica) { alert('Configure o WhatsApp da clínica em Configurações.'); return; }
+    abrirWA(config.telefoneClinica, construirMensagemClinica(ag));
+    toast('Abrindo WhatsApp para a clínica...');
+  }
+
+  /* MODAL CONFIRMAR */
+  function abrirModalConfirmar(id) {
+    const ag = agendamentos.find(a => a.id === id);
+    if (!ag) return;
+    agConfirmar = ag;
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    const esp = especialidades.find(e => e.id === ag.especialidadeId);
+    const dt = new Date(ag.dataHora);
+    $('modalConfirmarInfo').innerHTML = `
+      <div class="card-meta" style="font-size:0.88rem;line-height:1.7;padding:12px 14px;background:#f0fdf8;border-radius:12px;">
+        <div><strong>Paciente:</strong> ${escapeHtml(pac ? pac.nome : '—')}</div>
+        <div><strong>Data:</strong> ${dt.toLocaleString('pt-BR')}</div>
+        <div><strong>Especialidade:</strong> ${escapeHtml(esp ? esp.nome : '—')}</div>
+      </div>
+    `;
+    const temClin = !!config.telefoneClinica;
+    const temPac = pac && !!prepararTel(pac.telefone);
+    $('chkClinicaInfo').innerHTML = temClin
+      ? `<i class="fab fa-whatsapp"></i> ${escapeHtml(config.telefoneClinica)}`
+      : '⚠️ Configure o WhatsApp da clínica em Configurações';
+    $('chkClinica').disabled = !temClin;
+    $('chkPacienteInfo').innerHTML = temPac
+      ? `<i class="fab fa-whatsapp"></i> ${escapeHtml(pac.telefone)}`
+      : '⚠️ Paciente sem WhatsApp cadastrado';
+    $('chkPaciente').disabled = !temPac;
+    if (!temClin) $('chkClinica').checked = false;
+    if (!temPac) $('chkPaciente').checked = false;
+    $('modalConfirmar').classList.remove('hidden');
+  }
+
+  function executarConfirmacao() {
+    if (!agConfirmar) return;
+    const ag = agConfirmar;
+    const setStatus = $('chkStatus').checked;
+    const enviarClin = $('chkClinica').checked;
+    const enviarPac = $('chkPaciente').checked;
+    const addGcal = $('chkGcal').checked;
+    if (setStatus) {
+      ag.status = 'Confirmado';
+      ag.atualizadoEm = Date.now();
+      saveAgendamentos();
+    }
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    if (addGcal) window.open(gerarLinkGcal(ag), '_blank');
+    if (enviarClin || enviarPac) abrirPaginaEnvio(ag, enviarClin, enviarPac, pac);
+    $('modalConfirmar').classList.add('hidden');
+    agConfirmar = null;
+    renderAll();
+    toast('✅ Agendamento atualizado!' + ((enviarClin || enviarPac) ? ' Abrindo envios...' : ''), 'success');
+  }
+
+  function abrirPaginaEnvio(ag, enviarClin, enviarPac, pac) {
+    const clinicaNum = prepararTel(config.telefoneClinica);
+    const pacNum = pac ? prepararTel(pac.telefone) : '';
+    const msgClinica = construirMensagemClinica(ag);
+    const msgPaciente = construirMensagemPaciente(ag);
+    const clinicaUrl = enviarClin && clinicaNum ? `https://api.whatsapp.com/send?phone=${clinicaNum}&text=${encodeURIComponent(msgClinica)}` : null;
+    const pacienteUrl = enviarPac && pacNum ? `https://api.whatsapp.com/send?phone=${pacNum}&text=${encodeURIComponent(msgPaciente)}` : null;
+    const dt = new Date(ag.dataHora);
+    const dataStr = dt.toLocaleString('pt-BR');
+    let botoesHtml = '';
+    if (clinicaUrl) {
+      botoesHtml += `<a href="${escapeHtml(clinicaUrl)}" target="_blank" rel="noopener" class="dest dest-clinic">
+        <div class="dest-icon">🏥</div>
+        <div class="dest-body">
+          <strong>Enviar para a Clínica</strong>
+          <small>${escapeHtml(config.telefoneClinica)}</small>
+        </div>
+        <div class="dest-arrow">→</div>
+      </a>`;
+    }
+    if (pacienteUrl) {
+      botoesHtml += `<a href="${escapeHtml(pacienteUrl)}" target="_blank" rel="noopener" class="dest dest-patient">
+        <div class="dest-icon">👤</div>
+        <div class="dest-body">
+          <strong>Enviar para o Paciente</strong>
+          <small>${escapeHtml(pac.nome)} — ${escapeHtml(pac.telefone)}</small>
+        </div>
+        <div class="dest-arrow">→</div>
+      </a>`;
+    }
+    if (!botoesHtml) { alert('Nenhum destino selecionado ou faltam números de WhatsApp.'); return; }
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enviar confirmação — Th.One</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    background: linear-gradient(160deg, #e8f5e9 0%, #f4faf7 60%, #e0f2e9 100%);
+    min-height: 100vh; padding: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: #1a2b23;
+  }
+  .wrap {
+    background: #fff; border-radius: 24px;
+    box-shadow: 0 24px 48px rgba(0,60,40,0.15);
+    padding: 24px 18px; max-width: 560px; width: 100%;
+  }
+  h1 {
+    color: #0b3b2e; font-size: 1.25rem; font-weight: 700;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
+    word-break: break-word;
+  }
+  .subtitle {
+    font-size: 0.85rem; color: #4a6a60; margin-bottom: 20px;
+    padding-bottom: 14px; border-bottom: 2px dashed #cfe6dc;
+    line-height: 1.55; word-break: break-word;
+  }
+  .subtitle strong { color: #0b3b2e; }
+  .dest {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 16px; border-radius: 16px;
+    margin-bottom: 10px; text-decoration: none;
+    color: inherit; border: 2px solid;
+    transition: 0.2s; word-break: break-word;
+  }
+  .dest:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+  .dest-clinic { border-color: #2aa57a; background: #f0fdf8; }
+  .dest-clinic:hover { background: #e6faf0; }
+  .dest-patient { border-color: #25D366; background: #e8f8ee; }
+  .dest-patient:hover { background: #d4f1df; }
+  .dest-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .dest-body { flex: 1; min-width: 0; }
+  .dest-body strong {
+    display: block; font-size: 1rem; color: #0b3b2e;
+    margin-bottom: 3px; font-weight: 700; word-break: break-word;
+  }
+  .dest-body small { display: block; font-size: 0.8rem; color: #4a6a60; word-break: break-all; }
+  .dest-arrow {
+    font-size: 1.3rem; color: #2aa57a; font-weight: 700;
+    flex-shrink: 0; transition: 0.2s;
+  }
+  .dest-patient .dest-arrow { color: #25D366; }
+  .dest:hover .dest-arrow { transform: translateX(4px); }
+  .info {
+    background: #fff9e0; border-left: 4px solid #f57f17;
+    padding: 12px 14px; border-radius: 12px;
+    font-size: 0.82rem; color: #8a5a00; line-height: 1.55;
+    margin-top: 14px; word-break: break-word;
+  }
+  .btn-close {
+    width: 100%; padding: 13px; border: none;
+    border-radius: 30px; background: #e6f0eb; color: #347a60;
+    font-weight: 700; font-size: 0.9rem; cursor: pointer;
+    margin-top: 14px; transition: 0.15s;
+  }
+  .btn-close:hover { background: #d0dce4; }
+  @media (max-width: 400px) {
+    body { padding: 10px; }
+    .wrap { padding: 18px 14px; border-radius: 18px; }
+    h1 { font-size: 1.1rem; }
+    .dest { padding: 14px 12px; gap: 10px; }
+    .dest-icon { font-size: 1.5rem; }
+    .dest-body strong { font-size: 0.92rem; }
+    .dest-body small { font-size: 0.74rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span>📤</span> Enviar confirmação</h1>
+  <div class="subtitle">
+    Agendamento de <strong>${escapeHtml(pac ? pac.nome : '—')}</strong><br>
+    ${escapeHtml(dataStr)}
+  </div>
+  ${botoesHtml}
+  <div class="info">
+    💡 <strong>Toque em cada botão acima</strong> para abrir o WhatsApp com a mensagem já preenchida. Confirme o envio na janela do WhatsApp.
+  </div>
+  <button class="btn-close" onclick="window.close()">Fechar</button>
+</div>
+</body>
+</html>`;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    setTimeout(() => { try { URL.revokeObjectURL(url); } catch(_) {} }, 120000);
+  }
+
+  /* GCAL */
+  function gerarLinkGcal(ag) {
+    const pac = pacientes.find(p => p.id === ag.pacienteId);
+    const esp = especialidades.find(e => e.id === ag.especialidadeId);
+    const prof = profissionais.find(p => p.id === ag.profissionalId);
+    const dt = new Date(ag.dataHora);
+    const dur = parseInt(ag.duracao) || 60;
+    const dtFim = new Date(dt.getTime() + dur * 60 * 1000);
+    const fmt = d => `${d.getUTCFullYear()}${pad2(d.getUTCMonth()+1)}${pad2(d.getUTCDate())}T${pad2(d.getUTCHours())}${pad2(d.getUTCMinutes())}00Z`;
+    const titulo = `Atendimento — ${pac ? pac.nome : 'Paciente'}${esp ? ' / ' + esp.nome : ''}`;
+    const detalhes = [
+      `Paciente: ${pac ? pac.nome : 'N/A'}`,
+      pac && pac.telefone ? `Telefone: ${pac.telefone}` : '',
+      `Profissional: ${profissional.nome || (prof ? prof.nome : 'N/A')}`,
+      esp ? `Especialidade: ${esp.nome}` : '',
+      `Duração: ${dur} min`,
+      ag.valor ? `Valor: ${formatCurrency(ag.valor)}` : '',
+      `Status: ${ag.status}`,
+      ag.obs ? `Obs: ${ag.obs}` : ''
+    ].filter(Boolean).join('\n');
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: titulo,
+      dates: `${fmt(dt)}/${fmt(dtFim)}`,
+      details: detalhes,
+      location: config.nomeClinica || ''
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  }
+  function addGoogleCalendar(id) {
+    const ag = agendamentos.find(a => a.id === id);
+    if (!ag) return;
+    window.open(gerarLinkGcal(ag), '_blank');
+    toast('Abrindo Google Agenda...');
+  }
+
+  /* NOVO */
+  function renderNovo() {
+    const aviso = $('novoAviso');
+    if (pacientes.length === 0) {
+      aviso.innerHTML = `<div class="info-box warn"><i class="fas fa-user"></i><div><strong>Nenhum paciente importado.</strong> Importe um backup do paciente primeiro em <a href="#" onclick="event.preventDefault();trocarTab('agendamentos');" style="color:#8a5a00;font-weight:700;text-decoration:underline;">Agendamentos</a>.</div></div>`;
+    } else if (especialidades.length === 0) {
+      aviso.innerHTML = `<div class="info-box warn"><i class="fas fa-leaf"></i><div><strong>Nenhuma especialidade importada.</strong> Importe o backup da clínica em <a href="#" onclick="event.preventDefault();trocarTab('profissionais');" style="color:#8a5a00;font-weight:700;text-decoration:underline;">Profissionais</a>.</div></div>`;
+    } else {
+      aviso.innerHTML = '';
+    }
+    const hoje = new Date();
+    $('novoData').min = `${hoje.getFullYear()}-${pad2(hoje.getMonth()+1)}-${pad2(hoje.getDate())}`;
+    if (!$('novoData').value) $('novoData').value = $('novoData').min;
+    popularSelects();
+  }
+  function limparNovo() {
+    $('novoPaciente').value = '';
+    $('novoEsp').value = '';
+    $('novoDur').value = '';
+    $('novoValor').value = '';
+    $('novoObs').value = '';
+    toast('Formulário limpo');
+  }
+  function salvarNovoAgendamento() {
+    if (!profissional.nome) { alert('Cadastre-se primeiro em Meu Cadastro.'); trocarTab('cadastro'); return; }
+    const pacId = parseInt($('novoPaciente').value);
+    if (!pacId) { alert('Selecione o paciente.'); return; }
+    const espId = parseInt($('novoEsp').value);
+    if (!espId) { alert('Selecione a especialidade.'); return; }
+    const data = $('novoData').value;
+    const hora = $('novoHora').value;
+    if (!data || !hora) { alert('Informe data e hora.'); return; }
+    const esp = especialidades.find(e => e.id === espId);
+    const dur = parseInt($('novoDur').value) || (esp ? esp.duracao : 60) || 60;
+    const valor = parseDecimal($('novoValor').value) || (esp ? esp.valor : 0) || 0;
+    const obs = $('novoObs').value.trim();
+    const ag = {
+      id: gerarIdUnico(),
+      pacienteId: pacId,
+      profissionalId: meuProfissionalId || null,
+      especialidadeId: espId,
+      dataHora: new Date(`${data}T${hora}:00`).getTime(),
+      data, hora,
+      valor, duracao: dur,
+      status: 'Agendado',
+      pagamento: '',
+      obs,
+      valorPago: 0,
+      pagamentos: [],
+      criadoEm: Date.now(),
+      atualizadoEm: Date.now(),
+      origem: 'portal_profissional'
+    };
+    agendamentos.push(ag);
+    if (ag.id >= nextAgId) nextAgId = ag.id + 1;
+    saveAgendamentos();
+    toast('✅ Agendamento criado!', 'success');
+    limparNovo();
+    setTimeout(() => {
+      if (confirm('Deseja confirmar e enviar agora para clínica e paciente?')) {
+        abrirModalConfirmar(ag.id);
+      } else {
+        trocarTab('agendamentos');
+      }
+    }, 300);
+  }
+
+  /* CADASTRO */
+  function renderCadastro() {
+    $('cadNome').value = profissional.nome || '';
+    $('cadRegistro').value = profissional.registro || '';
+    $('cadTelefone').value = profissional.telefone || '';
+    $('cadEmail').value = profissional.email || '';
+    $('cadEspecialidade').value = profissional.especialidade || '';
+    $('cadObs').value = profissional.obs || '';
+    popularSelects();
+    const aviso = $('cadastroAviso');
+    if (profissionais.length === 0) {
+      aviso.innerHTML = `<div class="info-box info"><i class="fas fa-download"></i><div>A lista de profissionais da clínica ainda não foi importada. Você pode preencher seus dados manualmente, mas para vincular agendamentos importe o backup em <a href="#" onclick="event.preventDefault();trocarTab('profissionais');" style="color:#1a4b77;font-weight:700;text-decoration:underline;">Profissionais</a>.</div></div>`;
+    } else {
+      aviso.innerHTML = '';
+    }
+  }
+  function salvarCadastro() {
+    const nome = $('cadNome').value.trim();
+    if (!nome) { alert('Informe seu nome.'); return; }
+    const meuId = parseInt($('cadMeuId').value) || null;
+    profissional.nome = nome;
+    profissional.registro = $('cadRegistro').value.trim();
+    profissional.telefone = maskTelefone($('cadTelefone').value);
+    profissional.email = $('cadEmail').value.trim();
+    profissional.especialidade = $('cadEspecialidade').value.trim();
+    profissional.obs = $('cadObs').value.trim();
+    profissional.atualizadoEm = Date.now();
+    meuProfissionalId = meuId;
+    if (meuId) profissional.id = meuId;
+    saveProfissional();
+    saveMeuId();
+    renderHeader();
+    renderInicio();
+    toast('✅ Dados salvos!', 'success');
+  }
+
+  /* PROFISSIONAIS */
+  function renderProfissionais() {
+    $('countProf').textContent = profissionais.length;
+    $('countEsp').textContent = especialidades.length;
+    const elP = $('listaProfissionais');
+    if (profissionais.length === 0) {
+      elP.innerHTML = `<div class="empty"><i class="fas fa-user-md"></i>Nenhum profissional importado.<br><span style="font-size:0.82rem;">Clique em <strong>Importar da clínica</strong>.</span></div>`;
+    } else {
+      elP.innerHTML = profissionais.map(p => `
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">${escapeHtml(p.nome)}${String(p.id) === String(meuProfissionalId) ? ' <span class="badge badge-info">Você</span>' : ''}</span>
+            ${p.registro ? `<span class="badge badge-info">${escapeHtml(p.registro)}</span>` : ''}
+          </div>
+          <div class="card-meta">
+            ${p.telefone ? `<span><i class="fab fa-whatsapp" style="color:#25D366;"></i> ${escapeHtml(p.telefone)}</span>` : ''}
+            ${p.email ? `<span><i class="fas fa-envelope"></i> ${escapeHtml(p.email)}</span>` : ''}
+          </div>
+          ${p.obs ? `<div class="card-obs">${escapeHtml(p.obs)}</div>` : ''}
+        </div>
+      `).join('');
+    }
+    const elE = $('listaEspecialidades');
+    if (especialidades.length === 0) {
+      elE.innerHTML = `<div class="empty"><i class="fas fa-leaf"></i>Nenhuma especialidade importada.</div>`;
+    } else {
+      elE.innerHTML = especialidades.map(e => `
+        <div class="card">
+          <div class="card-header">
+            <span class="esp-dot" style="background:${e.cor || '#2aa57a'};"></span>
+            <span class="card-title">${escapeHtml(e.nome)}</span>
+          </div>
+          <div class="card-meta">
+            ${e.duracao ? `<span><i class="fas fa-clock"></i> ${e.duracao} min</span>` : ''}
+            ${e.valor ? `<span><i class="fas fa-dollar-sign"></i> ${formatCurrency(e.valor)}</span>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  /* CONFIG */
+  function renderConfig() {
+    $('cfgNomeClinica').value = config.nomeClinica || '';
+    $('cfgTelefoneClinica').value = config.telefoneClinica || '';
+  }
+
+  /* IMPORTAR */
+  function importarBackupFile() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json,application/json';
+    input.onchange = async e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try {
+        const txt = await file.text();
+        importarBackupJSON(txt);
+      } catch (err) {
+        alert('❌ Erro ao ler arquivo: ' + err.message);
+      }
+    };
+    input.click();
+  }
+  function importarBackupJSON(txt) {
+    let dados;
+    try { dados = JSON.parse(txt); }
+    catch (e) { alert('❌ Arquivo JSON inválido.'); return; }
+    const tipo = dados.tipo || '';
+    const ehBackup = tipo === 'thone_incremental_backup' || tipo === 'thone_full_backup' ||
+                     Array.isArray(dados.pacientes) || Array.isArray(dados.profissionais) || Array.isArray(dados.especialidades);
+    if (!ehBackup) {
+      if (!confirm('⚠️ Este arquivo não parece ser um backup do Th.One.\n\nDeseja tentar importar mesmo assim?')) return;
+    }
+    let nPac = 0, nProf = 0, nEsp = 0, nAg = 0;
+    if (Array.isArray(dados.pacientes)) {
+      dados.pacientes.forEach(p => {
+        if (!p || p.id === undefined) return;
+        const idx = pacientes.findIndex(x => x.id === p.id);
+        if (idx >= 0) {
+          const oldT = pacientes[idx].atualizadoEm || pacientes[idx].criadoEm || 0;
+          const newT = p.atualizadoEm || p.criadoEm || 0;
+          if (newT >= oldT) { pacientes[idx] = p; nPac++; }
+        } else { pacientes.push(p); nPac++; }
+      });
+    }
+    if (Array.isArray(dados.profissionais)) {
+      dados.profissionais.forEach(p => {
+        if (!p || p.id === undefined) return;
+        const idx = profissionais.findIndex(x => x.id === p.id);
+        if (idx >= 0) profissionais[idx] = p; else profissionais.push(p);
+        nProf++;
+      });
+    }
+    if (Array.isArray(dados.especialidades)) {
+      dados.especialidades.forEach(e => {
+        if (!e || e.id === undefined) return;
+        const idx = especialidades.findIndex(x => x.id === e.id);
+        if (idx >= 0) especialidades[idx] = e; else especialidades.push(e);
+        nEsp++;
+      });
+    }
+    if (Array.isArray(dados.agendamentos)) {
+      dados.agendamentos.forEach(ag => {
+        if (!ag || ag.id === undefined) return;
+        if (meuProfissionalId && ag.profissionalId && ag.profissionalId !== meuProfissionalId) return;
+        const idx = agendamentos.findIndex(a => a.id === ag.id);
+        if (idx >= 0) {
+          const oldT = agendamentos[idx].atualizadoEm || agendamentos[idx].criadoEm || 0;
+          const newT = ag.atualizadoEm || ag.criadoEm || 0;
+          if (newT >= oldT) { agendamentos[idx] = ag; nAg++; }
+        } else {
+          agendamentos.push(ag);
+          nAg++;
+        }
+      });
+    }
+    const maxId = agendamentos.reduce((m, a) => Math.max(m, a.id || 0), 0);
+    if (maxId >= nextAgId) nextAgId = maxId + 1;
+    savePacientes(); saveProfissionais(); saveEspecialidades(); saveAgendamentos();
+    if (!meuProfissionalId && profissional.nome && profissionais.length > 0) {
+      const encontrado = profissionais.find(p => p.nome && p.nome.toLowerCase().trim() === profissional.nome.toLowerCase().trim());
+      if (encontrado) { meuProfissionalId = encontrado.id; saveMeuId(); }
+    }
+    popularSelects();
+    renderAll();
+    const partes = [];
+    if (nPac) partes.push(`${nPac} paciente(s)`);
+    if (nProf) partes.push(`${nProf} profissional(is)`);
+    if (nEsp) partes.push(`${nEsp} especialidade(s)`);
+    if (nAg) partes.push(`${nAg} agendamento(s)`);
+    if (partes.length === 0) toast('Nenhum dado novo encontrado.', 'error');
+    else toast('✅ Importado: ' + partes.join(', '), 'success');
+  }
+
+  /* EXPORTAR */
+  function buildIncrementalExport() {
+    const meusAgs = meuProfissionalId
+      ? agendamentos.filter(a => !a.profissionalId || a.profissionalId === meuProfissionalId)
+      : agendamentos;
+    const pacIds = new Set(meusAgs.map(a => a.pacienteId));
+    const pacsParaExport = pacientes.filter(p => pacIds.has(p.id));
+    return {
+      versao: '1.0',
+      tipo: 'thone_incremental_backup',
+      dataBackup: new Date().toISOString(),
+      dispositivo: getNomeDispositivo() + '_Profissional',
+      dataLegivel: new Date().toLocaleString('pt-BR'),
+      referencia: 0,
+      referenciaLegivel: '(profissional)',
+      origem: 'portal_profissional',
+      profissionalNome: profissional.nome || '',
+      profissionalRegistro: profissional.registro || '',
+      pacientes: pacsParaExport.map(p => Object.assign({}, p)),
+      profissionais: profissionais.map(p => Object.assign({}, p)),
+      especialidades: especialidades.map(e => Object.assign({}, e)),
+      agendamentos: meusAgs.map(a => Object.assign({}, a)),
+      planos: [],
+      stockItems: [],
+      eventos: []
+    };
+  }
+  function gerarNomeArquivoInc() {
+    const a = new Date();
+    const nomeProf = (profissional.nome || 'Prof').replace(/[^a-zA-Z0-9]/g, '_').slice(0, 20);
+    return `ThOne_INC_Prof_${nomeProf}_${pad2(a.getDate())}${pad2(a.getMonth()+1)}${a.getFullYear()}_${pad2(a.getHours())}${pad2(a.getMinutes())}${pad2(a.getSeconds())}.json`;
+  }
+  async function salvarArquivo(nome, conteudo) {
+    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+    if (!isMobile && typeof window.showSaveFilePicker === 'function') {
+      try {
+        const h = await window.showSaveFilePicker({
+          suggestedName: nome,
+          types: [{ description: 'Backup JSON', accept: { 'application/json': ['.json'] } }]
+        });
+        const w = await h.createWritable();
+        await w.write(conteudo);
+        await w.close();
+        return { ok: true, metodo: 'fs' };
+      } catch (e) {
+        if (e && e.name === 'AbortError') return { ok: false, cancelado: true };
+      }
+    }
+    try {
+      const blob = new Blob([conteudo], { type: 'application/json' });
+      const file = new File([blob], nome, { type: 'application/json' });
+      if (navigator.canShare && navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Backup Th.One — Profissional', text: 'Backup incremental do Portal do Profissional.' });
+        return { ok: true, metodo: 'share' };
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return { ok: false, cancelado: true };
+    }
+    try {
+      const blob = new Blob([conteudo], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = nome;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      await new Promise(r => setTimeout(r, 80));
+      a.click();
+      setTimeout(() => { try { document.body.removeChild(a); URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+      return { ok: true, metodo: 'download' };
+    } catch (e) {
+      return { ok: false, fallback: true };
+    }
+  }
+  function showJsonFallback(nome, json) {
+    const w = window.open('', '_blank');
+    if (!w) { alert('Não foi possível abrir janela. Copie o JSON manualmente.'); return; }
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Backup</title>
+      <style>body{font-family:system-ui,sans-serif;padding:16px;background:#f4faf7;color:#1a2b23;}
+      h2{color:#0b3b2e;font-size:1.1rem;margin-bottom:10px;}
+      textarea{width:100%;height:60vh;font-family:monospace;font-size:12px;padding:10px;border:1px solid #c8ddcf;border-radius:10px;background:#fff;box-sizing:border-box;}
+      button{padding:12px 18px;border:none;border-radius:20px;background:#2aa57a;color:#fff;font-weight:700;cursor:pointer;margin-top:10px;margin-right:8px;font-size:0.9rem;}</style>
+      </head><body><h2>📥 Backup manual — Salve este arquivo</h2>
+      <p style="font-size:0.88rem;"><strong>Nome sugerido:</strong> <code style="word-break:break-all;">${escapeHtml(nome)}</code></p>
+      <textarea id="ta" readonly>${escapeHtml(json)}</textarea><br>
+      <button onclick="document.getElementById('ta').select();document.execCommand('copy');this.textContent='✅ Copiado!'">📋 Copiar JSON</button>
+      <button onclick="window.close()">✕ Fechar</button></body></html>`);
+    w.document.close();
+  }
+  async function exportarIncremental() {
+    if (agendamentos.length === 0) {
+      alert('Você ainda não tem agendamentos para exportar.');
+      return;
+    }
+    const dados = buildIncrementalExport();
+    const json = JSON.stringify(dados, null, 2);
+    const nome = gerarNomeArquivoInc();
+    const res = await salvarArquivo(nome, json);
+    if (res.cancelado) return;
+    if (res.ok) {
+      if (res.metodo === 'share') toast('Compartilhe o arquivo com a clínica no WhatsApp', 'success');
+      else toast('✅ Arquivo salvo! Envie para a clínica por WhatsApp.', 'success');
+    } else {
+      showJsonFallback(nome, json);
+    }
+  }
+  async function exportarWhatsApp() {
+    if (agendamentos.length === 0) { alert('Sem agendamentos para enviar.'); return; }
+    if (!config.telefoneClinica) {
+      if (confirm('Você ainda não configurou o WhatsApp da clínica.\n\nConfigurar agora?')) {
+        trocarTab('config');
+        setTimeout(() => $('cfgTelefoneClinica').focus(), 200);
+      }
+      return;
+    }
+    if (!confirm(`Enviar backup incremental dos seus agendamentos para a clínica?\n\nDestino: ${config.telefoneClinica}`)) return;
+    const totalConf = agendamentos.filter(a => a.status === 'Confirmado').length;
+    const totalPend = agendamentos.filter(a => a.status === 'Agendado').length;
+    let txt = `*📤 Backup do Profissional*\n\n`;
+    txt += `*Profissional:* ${profissional.nome || '—'}\n`;
+    if (profissional.registro) txt += `*Registro:* ${profissional.registro}\n`;
+    txt += `\n*Agendamentos:* ${agendamentos.length}\n`;
+    txt += `✅ Confirmados: ${totalConf}\n`;
+    txt += `⏳ Pendentes: ${totalPend}\n\n`;
+    txt += `_Envio em seguida o arquivo JSON para importação no app principal._`;
+    abrirWA(config.telefoneClinica, txt);
+    setTimeout(() => { exportarIncremental(); }, 1500);
+  }
+
+  /* BACKUP COMPLETO */
+  async function backupPortal() {
+    const dados = {
+      versao: '1.0',
+      tipo: 'thone_prof_portal_full_backup',
+      dataBackup: new Date().toISOString(),
+      dispositivo: getNomeDispositivo(),
+      dataLegivel: new Date().toLocaleString('pt-BR'),
+      profissional, meuProfissionalId,
+      pacientes, profissionais, especialidades, agendamentos, nextAgId, config
+    };
+    const json = JSON.stringify(dados, null, 2);
+    const a = new Date();
+    const nome = `ThOne_PortalProf_${pad2(a.getDate())}${pad2(a.getMonth()+1)}${a.getFullYear()}_${pad2(a.getHours())}${pad2(a.getMinutes())}.json`;
+    const res = await salvarArquivo(nome, json);
+    if (res.cancelado) return;
+    if (res.ok) toast('✅ Backup do portal salvo!', 'success');
+    else showJsonFallback(nome, json);
+  }
+  function restaurarPortal() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json,application/json';
+    input.onchange = async e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try {
+        const txt = await file.text();
+        const dados = JSON.parse(txt);
+        if (dados.tipo !== 'thone_prof_portal_full_backup' && !dados.profissional) {
+          if (!confirm('⚠️ Este arquivo não parece ser um backup do Portal do Profissional.\nDeseja tentar mesmo assim?')) return;
+        }
+        if (!confirm('⚠️ Restaurar o backup SUBSTITUIRÁ todos os dados atuais.\nContinuar?')) return;
+        if (dados.profissional) profissional = Object.assign(profissional, dados.profissional);
+        if (dados.meuProfissionalId) meuProfissionalId = dados.meuProfissionalId;
+        if (Array.isArray(dados.pacientes)) pacientes = dados.pacientes;
+        if (Array.isArray(dados.profissionais)) profissionais = dados.profissionais;
+        if (Array.isArray(dados.especialidades)) especialidades = dados.especialidades;
+        if (Array.isArray(dados.agendamentos)) agendamentos = dados.agendamentos;
+        if (dados.nextAgId) nextAgId = dados.nextAgId;
+        if (dados.config) config = Object.assign(config, dados.config);
+        saveProfissional(); saveMeuId(); savePacientes(); saveProfissionais();
+        saveEspecialidades(); saveAgendamentos(); saveConfig();
+        renderAll();
+        toast('✅ Portal restaurado!', 'success');
+      } catch (err) {
+        alert('❌ Erro: ' + err.message);
+      }
+    };
+    input.click();
+  }
+  function limparTudo() {
+    if (!confirm('⚠️ ATENÇÃO: apagar TODOS os dados deste portal?\n\nSeu cadastro, profissionais, especialidades, pacientes e agendamentos serão perdidos.')) return;
+    if (!confirm('Tem certeza ABSOLUTA? Esta ação não pode ser desfeita.')) return;
+    Object.values(STORAGE).forEach(k => { try { localStorage.removeItem(k); } catch (_) {} });
+    try { localStorage.removeItem('thone_prof_portal_tema'); } catch (_) {}
+    profissional = { id: null, nome: '', registro: '', telefone: '', email: '', especialidade: '', obs: '' };
+    meuProfissionalId = null;
+    pacientes = []; profissionais = []; especialidades = []; agendamentos = []; nextAgId = 1;
+    config = { nomeClinica: 'Th.One Terapias Integrativas', telefoneClinica: '', tema: 'green', logo: null };
+    renderAll();
+    toast('Portal limpo', 'success');
+  }
+
+  function renderAll() {
+    renderHeader();
+    popularSelects();
+    renderInicio();
+    renderListaAgendamentos();
+    renderProfissionais();
+    renderCadastro();
+    renderConfig();
+    if ($('tab-novo').classList.contains('active')) renderNovo();
+  }
+
+  function init() {
+    loadAll();
+    let savedTema = 'green';
+    try { savedTema = localStorage.getItem('thone_prof_portal_tema') || 'green'; } catch (_) {}
+    $('themeSelect').value = savedTema;
+    applyTheme(savedTema);
+    aplicarMascara($('cadTelefone'), maskTelefone);
+    aplicarMascara($('cfgTelefoneClinica'), maskTelefone);
+    document.querySelectorAll('.nav-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => trocarTab(btn.dataset.tab));
+    });
+    $('themeSelect').addEventListener('change', function () { applyTheme(this.value); });
+    $('filtroStatus').addEventListener('change', function () { filtroStatus = this.value; renderListaAgendamentos(); });
+    $('filtroTexto').addEventListener('input', function () { filtroTexto = this.value; renderListaAgendamentos(); });
+    $('btnImportarRapido').addEventListener('click', importarBackupFile);
+    $('btnImportarLista').addEventListener('click', importarBackupFile);
+    $('btnImportarProf').addEventListener('click', importarBackupFile);
+    $('btnImportarCfg').addEventListener('click', importarBackupFile);
+    $('btnExportarLista').addEventListener('click', exportarIncremental);
+    $('btnExportarCfg').addEventListener('click', exportarIncremental);
+    $('btnExportarWhatsCfg').addEventListener('click', exportarWhatsApp);
+    $('btnSalvarNovo').addEventListener('click', salvarNovoAgendamento);
+    $('novoEsp').addEventListener('change', function () {
+      const esp = especialidades.find(e => e.id === parseInt(this.value));
+      if (esp) {
+        if (!$('novoDur').value) $('novoDur').value = esp.duracao || 60;
+        if (!$('novoValor').value) $('novoValor').value = (esp.valor || 0).toFixed(2).replace('.', ',');
+      }
+    });
+    $('btnSalvarCadastro').addEventListener('click', salvarCadastro);
+    $('btnSalvarCfg').addEventListener('click', function () {
+      config.nomeClinica = $('cfgNomeClinica').value.trim() || 'Th.One Terapias Integrativas';
+      config.telefoneClinica = maskTelefone($('cfgTelefoneClinica').value);
+      saveConfig();
+      renderHeader();
+      toast('✅ Configurações salvas!', 'success');
+    });
+    $('btnBackupPortal').addEventListener('click', backupPortal);
+    $('btnRestorePortal').addEventListener('click', restaurarPortal);
+    $('btnLimparTudo').addEventListener('click', limparTudo);
+    $('btnConfirmarEnviar').addEventListener('click', executarConfirmacao);
+    document.querySelectorAll('.modal-overlay').forEach(m => {
+      m.addEventListener('click', e => { if (e.target === m) m.classList.add('hidden'); });
+    });
+    renderAll();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  window.trocarTab = trocarTab;
+  window.limparNovo = limparNovo;
+})();
+</script>
+</body>
+</html>
